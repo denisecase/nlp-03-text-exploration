@@ -1,0 +1,129 @@
+# ============================================================
+# pyproject.toml (Python and MkDocs project configuration)
+# ============================================================
+# REQ.PYTHON: Python projects MUST include pyproject.toml as the single source of truth.
+# WHY: Centralizes project configuration.
+
+[project]
+name = "nlp"               # CUSTOM: Package distribution name (use lowercase and dashes).
+readme = "README.md"
+requires-python = ">=3.14"
+version = "0.1.0"
+
+dependencies = [
+    # REQ.DEPS: External packages used by the project code.
+    "datafun-toolkit", # WHY: Provides utilities for privacy-aware logging.
+    "ipykernel",       # WHY: Provides the Python kernel used by Jupyter notebooks.
+    "ipython",         # WHY: Enhanced interactive Python shell used by notebook kernels.
+    # "requests",        # WHY: Simple HTTP client for retrieving web pages and APIs.
+    # "beautifulsoup4",  # WHY: Parse HTML and extract structured data from web pages.
+    # "lxml",            # WHY: Fast XML/HTML parser used by BeautifulSoup.
+    "polars",          # WHY: Fast Rust-based dataframe library for text statistics and tabular analysis.
+    "matplotlib",      # WHY: Core visualization library for plots used in exploratory analysis.
+    # "wordcloud",       # WHY: Quick visual exploration of word frequencies in text corpora.
+    #"spacy", # WHY: Industrial-strength NLP library for tokenization and linguistic analysis.
+]
+
+[project.optional-dependencies]
+# WHY: Optional dependency groups keep the core install clean and focused.
+dev = [
+    # REQ.DEV.DEPS: External packages used for linting, testing, type checking, etc.
+    "pre-commit",
+    "ruff",
+    "validate-pyproject",
+]
+
+docs = [
+    # REQ.DOCS.DEPS: External packages used to generate project documentation.
+    "mkdocstrings[python]",
+    "zensical",
+]
+
+# === RUFF (PYTHON FORMATTING AND LINTING) ===
+
+[tool.ruff]
+# WHY: Ruff provides fast linting and formatting with deterministic output.
+exclude = [
+    ".eggs",
+    "*.egg-info",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "site",
+]
+line-length = 88 # WHY: PEP 8 standard line length, wrap when possible.
+preview = false # WHY: Stable features only; avoid preview features.
+target-version = "py313" # WHY: Match latest supported Python version.
+unsafe-fixes = false # WHY: Avoid potentially unsafe automatic fixes.
+
+[tool.ruff.format]
+# WHY: Formatter choices should be stable to keep diffs small and predictable.
+indent-style = "space"   # See also .gitattributes for indent style.
+line-ending = "auto"     # Match existing files and let .gitattributes handle it.
+quote-style = "preserve" # Preserve existing quote styles to minimize churn.
+
+[tool.ruff.lint]
+# WHY: Professional baseline rules without requiring advanced refactors.
+select = [
+    "E",   # Basic syntax and structural correctness
+    "F",   # Undefined names and unused imports
+    "W",   # Warnings that catch easy issues early
+    "I",   # Deterministic import ordering
+    "UP",  # Modern Python constructs
+    "B",   # Common bug patterns
+    "PTH", # Prefer pathlib patterns
+]
+ignore = [
+    "E501", # Final line length handled by formatter
+]
+
+[tool.ruff.lint.isort]
+# WHY: Ordering imports helps keep code diffs (differences) readable.
+force-sort-within-sections = true
+
+# === PER-FILE IGNORES (DEPENDS ON DOCSTRING POLICY) ===
+
+[tool.ruff.lint.per-file-ignores]
+# WHY: Some files MUST NOT undergo linting or automated fixes.
+
+# POLICY: Docstring rules are NOT enabled (no "D" in [tool.ruff.lint].select).
+"src/**/__init__.py" = ["F401"]   # Allow re-export patterns
+"src/**/_version.py" = ["ALL"]    # Auto-generated file (do not lint)
+"notebooks/**/*.ipynb" = ["F821"] # Notebooks may have runtime-defined names
+
+# === CHOOSE PROJECT DOC STYLE ===
+
+[tool.ruff.lint.pydocstyle]
+# WHY: Choose one docstring convention project-wide to avoid mixed styles and churn.
+# REQ: Google style is the default policy for this repository.
+convention = "google" # ALT: "numpy" (choose one convention project-wide)
+
+# === BUILD SYSTEM ===
+#
+# REQ.PROJECT:
+#   This project MUST define a build system and package discovery rules.
+#
+# WHY:
+#   A build backend and src/ package discovery make local imports,
+#   editable installs, tests, editors, and CI behave consistently.
+#
+# REQ.STRUCTURE:
+#   All importable Python code MUST live under src/.
+#
+# WHY:
+#   A src/ layout prevents accidental imports from the repository root
+#   and improves consistency across tools.
+[build-system]
+# REQ.BUILD: A build backend MUST be declared to enable package discovery.
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=80.9.0"]
+
+[tool.setuptools]
+# REQ.PACKAGES: Package discovery MUST be rooted at src/.
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+# WHY: Explicitly define package discovery location.
+where = ["src"]

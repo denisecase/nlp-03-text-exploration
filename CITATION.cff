@@ -1,0 +1,59 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+
+# REQ.UNIVERSAL: Professional open projects SHOULD include CITATION.cff.
+# WHY: Support correct citation and attribution.
+# ALT: Internal or private repositories may omit citation metadata.
+# CUSTOM: Update author, repository, license, and keyword fields as needed.
+# USAGE: See https://citation-file-format.github.io/ for details.
+
+cff-version: "1.2.0"
+type: software
+
+title: Web Mining and Applied NLP 03 Text Exploration
+date-released: "2026-03-20"
+
+authors:
+  - family-names: Case
+    given-names: Denise M.
+    orcid: "https://orcid.org/0000-0001-6165-7389"
+    affiliation: "Northwest Missouri State University, USA"
+
+repository-code: "https://github.com/denisecase/nlp-03-text-exploration"
+url: "https://github.com/denisecase/nlp-03-text-exploration"
+license: MIT
+
+abstract: |
+  Web Mining and Applied NLP Example Project 3 - Exploratory analysis
+  of text corpora using tokenization, frequency distributions,
+  category comparison, co-occurrence, and visualization to reveal
+  structure prior to modeling.
+
+keywords:
+  # identity
+  - data analytics
+  - web mining
+  - applied natural language processing (NLP)
+  - text exploration
+
+  # concepts
+  - tokenization
+  - frequency analysis
+  - co-occurrence
+  - bigrams
+  - corpus analysis
+
+  # practices
+  - reproducible workflows
+  - exploratory data analysis (EDA)
+
+  # tools and ecosystem
+  - python
+  - polars
+  - matplotlib
+  - uv
+  - git
+  - github
+
+message: "If using this project, please cite it as described in this file."

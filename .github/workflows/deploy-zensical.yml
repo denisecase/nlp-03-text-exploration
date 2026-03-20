@@ -1,0 +1,107 @@
+# ============================================================
+# .github/workflows/deploy-zensical.yml (Deploy Docs)
+# ============================================================
+# SOURCE: https://github.com/denisecase/templates
+#
+# WHY-FILE: Build and deploy documentation to GitHub Pages on pushes to main.
+# REQ: Repo Settings -> Pages -> Build and deployment -> Source:
+#      GitHub Actions
+
+name: Docs Deploy (Zensical)
+
+on:
+  push:
+    branches: [main] # WHY: Run when pushing to main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
+
+permissions:
+  contents: read # WHY: Needed to checkout code.
+  pages: write # WHY: Required to deploy to GitHub Pages.
+  id-token: write # WHY: Required by deploy-pages for OIDC.
+
+env:
+  PYTHONUNBUFFERED: "1" # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
+
+concurrency:
+  # WHY: Only one Pages deployment at a time per branch.
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    name: Deploy Documentation site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # WHY: Prevent hanging jobs. If over, it is likely stuck.
+    env:
+      UV_PYTHON: "3.14" # WHY: Set Python version for all steps.
+
+    steps:
+      # ============================================================
+      # ASSEMBLE: Get code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout repository code
+        # WHY: Needed to access files for checks.
+        uses: actions/checkout@v6
+
+      - name: A2) Configure GitHub Pages
+        # WHY: Sets Pages metadata for deployments.
+        uses: actions/configure-pages@v5
+
+      - name: A3) Install uv (with caching and uv.lock awareness)
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
+
+      - name: A4) Install Python 3.14 (no repo changes needed)
+        run: uv python install 3.14
+
+      - name: A5) Sync to install all dependencies
+        run: uv sync --extra dev --extra docs --upgrade
+
+      - name: A6) Show tool versions
+        run: |
+          uv --version
+          uv run python --version
+          if [ -f "zensical.toml" ]; then
+            uv run zensical --version
+          fi
+
+      # ============================================================
+      # === DEPLOY: Build and deploy ===
+      # ============================================================
+
+      - name: D1) Build docs with Zensical
+        run: |
+          if [ ! -f "zensical.toml" ]; then
+            echo "zensical.toml not found; refusing to deploy." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          uv run zensical build
+
+      - name: D2) Verify site output exists
+        # WHY: Zensical should create a static site in the configured output directory
+        # (commonly "site/"). If the directory does not exist, the documentation
+        # build likely failed or the configuration is incorrect.
+        run: |
+          if [ ! -d "site" ]; then
+            echo "## Documentation build output missing" >> "$GITHUB_STEP_SUMMARY"
+            echo "Expected directory 'site/' was not created." >> "$GITHUB_STEP_SUMMARY"
+            echo "Check the Zensical build step and zensical.toml configuration." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: D3) Upload Pages artifact
+        # WHY: GitHub Pages deployments require a packaged artifact containing
+        # the built static site. This step bundles the contents of the site/
+        # directory so the next step can publish it.
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site # WHY: Default Zensical output directory for the built site.
+
+      - name: D4) Deploy to GitHub Pages
+        # WHY: This step takes the uploaded artifact and publishes it to
+        # GitHub Pages so the documentation becomes publicly accessible.
+        uses: actions/deploy-pages@v4

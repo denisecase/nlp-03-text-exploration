@@ -1,0 +1,119 @@
+# ============================================================
+# .github/workflows/ci-python-zensical.yml (Continuous Integration)
+# ============================================================
+# SOURCE: https://github.com/denisecase/templates
+#
+# WHY-FILE: Validate repository hygiene, python, and documentation builds.
+# REQ: CI MUST NOT introduce arbitrary rules that are not reproducible locally.
+# OBS: CI validates only; it should not edit files or deploy docs.
+
+name: CI (Python + Zensical)
+
+# WHY: Validate code, docs, and repo metadata on PRs and pushes.
+# OBS: This workflow validates only; it never deploys.
+
+on:
+  push:
+    branches: [main] # WHY: Run when pushing to main branch.
+  pull_request:
+    branches: [main] # WHY: Run on pull requests targeting main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
+
+permissions: # WHY: Use least privileges required.
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: "1" # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
+
+jobs:
+  ci:
+    name: Repository / Python checks and Zensical build
+    runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments
+    timeout-minutes: 30 # WHY: Prevent hanging jobs. If over time, it is likely stuck.
+    env:
+      UV_PYTHON: "3.14" # WHY: Set Python version for all steps.
+
+    steps:
+      # ============================================================
+      # ASSEMBLE: Get code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout repository code
+        # WHY: Needed to access files for checks.
+        uses: actions/checkout@v6
+
+      - name: A2) Install uv (with caching and uv.lock awareness)
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
+
+      - name: A3) Install Python 3.14 (no repo changes needed)
+        run: uv python install 3.14
+
+      - name: A4) Sync to install all dependencies
+        run: uv sync --extra dev --extra docs --upgrade
+
+      - name: A5) Show tool versions
+        run: |
+          uv --version
+          uv run python --version
+          if [ -f "zensical.toml" ]; then
+            uv run zensical --version
+          fi
+
+      - name: A6) Run pre-commit (all files)
+        run: uv tool run pre-commit run --all-files
+
+      # ============================================================
+      # === BASELINE CHECKS ===
+      # ============================================================
+
+      - name: B1) validate-pyproject (must be in pyproject.toml dependencies)
+        run: uv run validate-pyproject pyproject.toml
+
+      # ============================================================
+      # === COVERAGE AND TESTS: Verify functionality ===
+      # ============================================================
+
+      - name: C1) Run pytest with coverage
+        run: |
+          if [ -d "tests" ] && [ -n "$(find tests -type f \( -name 'test_*.py' -o -name '*_test.py' \) -print -quit)" ]; then
+            uv run pytest --verbose --cov=src --cov-report=term-missing --cov-report=xml
+          else
+            echo "## No Tests Found" >> "$GITHUB_STEP_SUMMARY"
+            echo "Tests directory missing or empty. CI continues." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: C2) Upload test coverage to GitHub Summary
+        if: always()
+        run: |
+          echo "## Test Coverage Report" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f ".coverage" ]; then
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            uv run coverage report >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No coverage data available." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: C3) Upload coverage artifact
+        if: always() && hashFiles('coverage.xml') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 30
+
+      # ============================================================
+      # === DEPLOY: Build only, don't deploy yet ===
+      # ============================================================
+
+      - name: D1) Build docs with Zensical
+        run: |
+          if [ -f "zensical.toml" ]; then
+            uv run zensical build
+          else
+            echo "No zensical.toml config found; skipping docs build."
+          fi
