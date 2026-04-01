@@ -18,8 +18,8 @@ dependencies = [
     # "requests",        # WHY: Simple HTTP client for retrieving web pages and APIs.
     # "beautifulsoup4",  # WHY: Parse HTML and extract structured data from web pages.
     # "lxml",            # WHY: Fast XML/HTML parser used by BeautifulSoup.
-    "polars",          # WHY: Fast Rust-based dataframe library for text statistics and tabular analysis.
-    "matplotlib",      # WHY: Core visualization library for plots used in exploratory analysis.
+    "polars[rtcompat]",  # WHY: Fast Rust-based dataframe library for text statistics and tabular analysis.
+    "matplotlib",        # WHY: Core visualization library for plots used in exploratory analysis.
     # "wordcloud",       # WHY: Quick visual exploration of word frequencies in text corpora.
     #"spacy", # WHY: Industrial-strength NLP library for tokenization and linguistic analysis.
 ]
