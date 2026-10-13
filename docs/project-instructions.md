@@ -1,117 +1,123 @@
 # Project Instructions
 
-## WEDNESDAY: Complete Workflow Phase 1
+## Goal
 
-Follow the instructions in
-[⭐ **Workflow: Apply Example**](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
-to complete:
+Apply **exploratory text analysis** to investigate
+vocabulary patterns, category differences,
+and relationships between words.
 
-1. Phase 1. **Start & Run** - copy the project and confirm it runs
-2. Phase 2. **Change Authorship** - update the project to your name and GitHub account
-3. Phase 3. **Read & Understand** - review the project structure and code
+## A. Set Up Machine
 
-## FRIDAY/SUNDAY: Complete Workflow Phases 2-4
+Complete [Workflow A: Set Up Machine](https://denisecase.github.io/pro-analytics-02/workflow-a-set-up-machine/)
+if your machine is not ready.
 
-Again, follow the instructions above to complete:
+## B. Explore Example Project
 
-1. Phase 4. **Make a Technical Modification**
-2. Phase 5. **Apply the Skills to a New Problem**
+Follow [Workflow B: Explore Example Project](https://denisecase.github.io/pro-analytics-02/workflow-b-explore-example-project/).
 
-## Phase 4 Suggestions
+Explore how the example:
 
-Make a small technical change that does not break the pipeline.
-Choose any one of these (or a different modification as you like):
+- Defines a corpus of labeled text documents.
+- Tokenizes and cleans text.
+- Calculates global token frequencies.
+- Compares token frequencies across categories.
+- Examines word co-occurrence using context windows.
+- Calculates bigram frequencies.
+- Visualizes vocabulary patterns.
 
-- Change how many top tokens are displayed (e.g., change `head(5)` to `head(7)`)
-- Change the context window size and observe how the nearby words change:
-  - Example: set `WINDOW_SIZE = 3`
-- Add a new sentence to an existing category and rerun the analysis
-- Add a new category with 2-3 simple sentences (follow the same pattern)
-- Modify the visualization (plot a **different category** and update the title accordingly)
+Consider what frequency and co-occurrence
+reveal about relationships between words.
 
-Confirm the script still runs successfully after your change.
+## C. Start New Project
 
-## Phase 5 Suggestions
+Follow [Workflow C: Start New Project](https://denisecase.github.io/pro-analytics-02/workflow-c-start-new-project/).
 
-### Phase 5 Suggestion 1. New Corpus, New Categories (Directed)
+IMPORTANT: New repository name:
+**nlp-03-text-exploration-custom**.
 
-Apply the same process to a new corpus.
-Replace the existing corpus with one of the examples below and rerun the script.
+VERIFY: You have completed git add-commit-push to GitHub at least twice.
 
-```python
-corpus = [
-    # Food
-    {"category": "food", "text": "The chef cooks a meal."},
-    {"category": "food", "text": "The recipe uses fresh ingredients."},
-    {"category": "food", "text": "The dish is served hot."},
+## D. Apply Skills
 
-    # Sports
-    {"category": "sports", "text": "The player scored a goal."},
-    {"category": "sports", "text": "The team won the game."},
-    {"category": "sports", "text": "The coach leads the team."},
+Follow [Workflow D: Apply Skills](https://denisecase.github.io/pro-analytics-02/workflow-d-apply-skills/).
 
-    # Technology
-    {"category": "technology", "text": "The computer runs software."},
-    {"category": "technology", "text": "The system processes data."},
-    {"category": "technology", "text": "The network connects devices."}
-]
-```
+**Your problem:** Investigate vocabulary differences
+between categories of text documents.
 
-```python
-corpus = [
-    # Patients
-    {"category": "patient", "text": "The patient reports mild pain."},
-    {"category": "patient", "text": "The patient rests after treatment."},
-    {"category": "patient", "text": "The patient follows the care plan."},
+Create a new labeled corpus on a topic of interest.
 
-    # Doctors
-    {"category": "doctor", "text": "The doctor examines the patient."},
-    {"category": "doctor", "text": "The doctor prescribes medication."},
-    {"category": "doctor", "text": "The doctor reviews the results."},
+### Progression 1. Your Project Works Like the Example
 
-    # Hospitals
-    {"category": "hospital", "text": "The hospital admits new patients."},
-    {"category": "hospital", "text": "The hospital provides emergency care."},
-    {"category": "hospital", "text": "The hospital manages patient records."}
-]
-```
+Ensure your new custom project runs like the example.
 
-After replacing the corpus:
+Verify that key files have been updated to use **your GitHub account** and
+the **new custom repository name**.
 
-- Update any category references in your code if needed
-- Run the full script again
-- Review the output and compare patterns across the new categories
-- Compare any two or more categories and describe how their token usage differs
-- Explain your findings in 3-5 sentences.
-- Focus on what changed and why.
+### Progression 2. Make a Technical Modification
 
-Your goal is to reuse the same process on new data and interpret what changes.
+Change the context window size.
 
-### Phase 5 Suggestion 2. New Corpus, New Categories (Original Corpus)
+For example, compare windows of 2 and 3 tokens.
 
-Apply this pipeline to a new problem (choose any of these):
+Run the analysis again and observe
+how the co-occurring words change.
 
-- Extend the corpus with new categories and analyze the results
-- Replace the corpus with a new domain (e.g., animals, veterinarians, clinics)
-- Create your own corpus with 2-3 categories and multiple example sentences
+Explain what the window size controls
+and how it affects the results.
 
-With your new corpus:
+### Progression 3. Apply to a New Problem
 
-- Compare any two or more categories and describe how their token usage differs
-- Explain your findings in 3-5 sentences.
-- Focus on what changed and why.
+Apply the same text exploration process
+to your own labeled corpus.
 
-Your goal is to reuse this process on new data and interpret the results.
+- Create a corpus with at least three categories.
+- Include at least three text documents per category.
+- Update the analysis to use the new corpus.
+- Calculate global token frequencies.
+- Compare token frequencies across categories.
+- Examine co-occurrence patterns for selected terms.
+- Identify frequently occurring bigrams.
+- Update category references, chart labels, and observations.
+- Interpret the differences between categories.
 
-## Professional Communication
+Include at least one visualization
+that reflects your new corpus.
 
-Remove instructor provided content you no longer need in your project.
+Explain what the observed patterns suggest
+and what cannot be concluded from frequency counts alone.
 
-For example, notebook cell comments indicating the type - these are useful while learning but not usually seen in professional projects.
+The goal is to reuse the same analytical techniques
+on a new corpus and interpret the results.
 
-Make sure the title and narrative reflect your presentation.
-Verify key files:
+## E. Finalize Project
 
-- README.md
-- docs/ (source and hosted on GitHub pages)
-- notebooks/ (and/or src/) reflect your project
+Follow [Workflow E: Finalize Project](https://denisecase.github.io/pro-analytics-02/workflow-e-finalize/).
+
+Use `docs/index.md` to report:
+
+- Corpus and analytical question.
+- Categories and document counts.
+- Technical modification.
+- Global and category token frequencies.
+- Co-occurrence and bigram findings.
+- A visualization comparing vocabulary patterns.
+- Interpretation and limitations.
+
+Include a clickable link to your repository and artifacts.
+
+## Success
+
+- [ ] README.md project-specific links use **your GitHub account**.
+- [ ] README.md project-specific links use **your custom repository name**.
+- [ ] docs/index.md project-specific links use **your GitHub account**.
+- [ ] docs/index.md project-specific links use **your custom repository name**.
+- [ ] pyproject.toml `name` has been changed to use **your custom repository name**.
+- [ ] The `src/nlp` folder reflects your authorship and custom work.
+- [ ] Your new corpus and categories are used throughout the analysis.
+- [ ] All necessary commands are provided and work successfully.
+- [ ] Links to the Professional Python Guide (pro-analytics-02) remain unchanged.
+- [ ] Commit history shows **at least** the git add-commit-push history required in the instructions.
+
+---
+
+[◄ Back to Home](index.md)

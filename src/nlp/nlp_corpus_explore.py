@@ -1,5 +1,4 @@
-"""
-nlp_corpus_explore_case.py - Module 3 Script
+"""nlp_corpus_explore.py - Module 3 Script.
 
 Purpose
 
@@ -14,14 +13,13 @@ Analytical Questions
 - What words appear in similar contexts?
 - What structure is visible before using any models?
 
-Notes
-
+Notes:
 - This module focuses on exploratory analysis (EDA), not modeling.
 - Results here prepare for later work with pipelines and embeddings.
 
 Run from root project folder with:
 
-  uv run python -m nlp.nlp_corpus_explore_case
+  uv run python -m nlp.nlp_corpus_explore
 """
 
 # ============================================================
@@ -110,6 +108,7 @@ print(f"Corpus contains {len(corpus)} documents.")
 # This simple tokenizer is sufficient for our small, controlled corpus.
 # Use the string strip() method to remove punctuation from the beginning and end of each token.
 def tokenize(text: str) -> list[str]:
+    """Tokenize the input text into a list of cleaned tokens."""
     tokens = text.lower().split()
     return [t.strip(".,:;!?()[]\"'") for t in tokens if len(t) > 2]
 

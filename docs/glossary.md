@@ -1,86 +1,138 @@
-# Glossary (Module 3: Text Exploration)
+# Glossary
+
+This module focuses on exploring text corpora
+through vocabulary distributions,
+category comparisons, and contextual patterns.
+
+## Quick Lookup
+
+Common terms used in this module:
+
+- **Corpus** - a collection of text documents.
+- **Document** - an individual unit of text in a corpus.
+- **Vocabulary** - the set of distinct tokens.
+- **Frequency Distribution** - counts of token occurrences.
+- **Co-occurrence** - tokens appearing within a defined context.
+- **Context Window** - the surrounding tokens examined for context.
+- **N-gram** - a sequence of consecutive tokens.
+- **Bigram** - an n-gram containing two tokens.
 
 ## Corpus
 
-A collection of text documents used for analysis.
-In this project, each document is a short sentence with an associated category.
+A **corpus** is a collection of text documents
+used for linguistic or computational analysis.
+
+Corpora may contain documents from different
+sources, topics, categories, or time periods.
 
 ## Document
 
-A single unit of text within a corpus.
-In this project, each document is represented as one line of text.
+A **document** is an individual unit of text
+within a corpus.
+
+A document may be a sentence, paragraph,
+article, message, or other defined text unit.
 
 ## Category
 
-A label assigned to a document that groups it with similar documents
-(e.g., "dog", "cat", "car", "truck").
+A **category** is a label or classification
+associated with a document.
 
-## Token
+Categories support comparisons
+between groups of documents.
 
-A word-like unit extracted from text during tokenization.
+## Vocabulary
 
-## Tokenization
+The **vocabulary** of a corpus
+is the set of distinct tokens it contains.
 
-The process of splitting text into individual tokens (words).
-
-## Cleaning (Text Cleaning)
-
-The process of preparing text for analysis by:
-
-- converting to lowercase
-- removing punctuation
-- filtering out very short tokens
-
-## Token DataFrame
-
-A tabular structure where each row represents a single token and its associated category.
+Vocabulary size is the number
+of distinct tokens.
 
 ## Frequency Distribution
 
-A count of how often each token appears.
+A **frequency distribution** describes
+how often individual tokens occur.
+
+Frequency distributions may be calculated
+for an entire corpus or subsets of documents.
 
 ## Global Frequency
 
-Token frequency calculated across the entire corpus.
+**Global frequency** is the number of occurrences
+of a token across an entire corpus.
+
+Global frequencies describe vocabulary usage
+without separating documents by category.
 
 ## Category Frequency
 
-Token frequency calculated within each category.
+**Category frequency** is the number of occurrences
+of a token within a specified document category.
+
+Comparing category frequencies can reveal
+differences in vocabulary usage between groups.
 
 ## Co-occurrence
 
-A measure of which tokens appear near each other in text.
+**Co-occurrence** describes tokens
+appearing together within a defined context.
+
+Co-occurrence patterns provide information
+about relationships in language usage.
+
+Co-occurrence alone does not establish
+that words have the same meaning.
 
 ## Context Window
 
-The number of tokens before and after a target token used to define its context.
+A **context window** defines the surrounding
+text considered when examining a target token.
 
-## Co-occurrence Dictionary
+A token-based window may include
+a specified number of tokens
+before and after the target.
 
-A dictionary where:
+Window size influences which relationships
+are captured in the analysis.
 
-- each key is a token
-- each value is a list of tokens that appear near it
+## N-gram
+
+An **n-gram** is a sequence of
+N consecutive tokens.
+
+N-grams capture local ordering
+within text.
 
 ## Bigram
 
-A pair of consecutive tokens (two-word sequence).
+A **bigram** is an n-gram
+consisting of two consecutive tokens.
 
-## Bigram Frequency
+Bigram frequencies describe
+how often particular token pairs occur.
 
-A count of how often each bigram appears.
+## Distributional Hypothesis
 
-## Visualization
+The **distributional hypothesis** is the idea
+that linguistic expressions occurring in similar
+contexts tend to have related meanings or functions.
 
-A graphical representation of data (e.g., bar charts of token frequencies).
-
-## Pattern
-
-A repeated structure in the data, such as:
-
-- words appearing in similar contexts
-- tokens clustering by category
+This idea provides a foundation
+for distributional semantics
+and many word representation methods.
 
 ## Interpretation
 
-The process of explaining what the results mean based on observed patterns in the data.
+**Interpretation** is the process
+of explaining observed patterns
+in relation to an analytical question.
+
+Frequency and co-occurrence patterns
+provide evidence about text structure,
+but conclusions must account for
+the corpus, context, and analytical limitations.
+
+---
+
+[◄ Back to 🏠 Home](index.md)
