@@ -82,7 +82,6 @@ word embeddings, and modern language models.
 
 - [GitHub Repository](https://github.com/denisecase/nlp-03-text-exploration)
 - [Example Script](https://github.com/denisecase/nlp-03-text-exploration/blob/main/src/nlp/nlp_corpus_explore.py)
-- [Example Notebook](https://github.com/denisecase/nlp-03-text-exploration/blob/main/notebooks/nlp_corpus_explore.ipynb)
 
 ## Project Resources
 

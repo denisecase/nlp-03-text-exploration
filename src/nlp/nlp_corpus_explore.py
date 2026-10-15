@@ -44,14 +44,12 @@ print("Imports complete.")
 LOG: logging.Logger = get_logger("CI", level="DEBUG")
 
 ROOT_PATH: Path = Path.cwd()
-NOTEBOOKS_PATH: Path = ROOT_PATH / "notebooks"
 SCRIPTS_PATH: Path = ROOT_PATH / "scripts"
 
 log_header(LOG, "MODULE 3: CORPUS EXPLORATION")
 LOG.info("START script.....")
 
 log_path(LOG, "ROOT_PATH", ROOT_PATH)
-log_path(LOG, "NOTEBOOKS_PATH", NOTEBOOKS_PATH)
 log_path(LOG, "SCRIPTS_PATH", SCRIPTS_PATH)
 
 LOG.info("Logger configured.")

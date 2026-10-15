@@ -26,8 +26,6 @@ version = "0.1.0"
 dependencies = [
     # REQ.DEPS: External packages used by the project code.
     "datafun-toolkit",
-    "ipykernel",       # WHY: Provides the Python kernel used by Jupyter notebooks.
-    "ipython",         # WHY: Enhanced interactive Python shell used by notebook kernels.
     # "requests",        # WHY: Simple HTTP client for retrieving web pages and APIs.
     # "beautifulsoup4",  # WHY: Parse HTML and extract structured data from web pages.
     # "lxml",            # WHY: Fast XML/HTML parser used by BeautifulSoup.

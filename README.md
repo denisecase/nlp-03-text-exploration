@@ -71,7 +71,6 @@ Explore these important project components:
 
 - [pyproject.toml](pyproject.toml) - project identity, dependencies, and tool configuration.
 - [src/nlp/nlp_corpus_explore.py](src/nlp/nlp_corpus_explore.py) - executable Python corpus analysis.
-- [notebooks/nlp_corpus_explore.ipynb](notebooks/nlp_corpus_explore.ipynb) - interactive Jupyter notebook example.
 - [tests/](tests/) - automated tests.
 - [.github/workflows/](.github/workflows/) - automated testing and documentation deployment.
 - [docs/](docs/) - project documentation.
@@ -93,9 +92,6 @@ uv run python -m nlp.nlp_corpus_explore
 
 Close each visualization window after viewing
 so the script can continue executing.
-
-The Jupyter notebook provides an additional
-interactive version of the analysis.
 
 ## Results
 
