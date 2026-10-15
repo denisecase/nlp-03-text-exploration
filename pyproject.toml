@@ -91,12 +91,8 @@ exclude-newer-package = { datafun-toolkit = false, nlp = false }
 
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling"]
 
 [tool.hatch.build.targets.wheel]
-# CUSTOM: Must match src/ folders.
-packages = ["src/nlp"] # CUSTOM: Adjust as needed to match the actual package directory under src/.
-
-[tool.setuptools.packages.find]
-# WHY: Explicitly define package discovery location.
-where = ["src"]
+# CUSTOM: Adjust as needed to match the actual package directory under src/.
+packages = ["src/nlp"]
